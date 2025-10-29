@@ -47,7 +47,6 @@ function getMaxNumber(a, b, c) {
   if (max < c) {
     max = c;
   }
-  
   return max;
 }
 
