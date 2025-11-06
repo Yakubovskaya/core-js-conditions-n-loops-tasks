@@ -69,8 +69,59 @@ function getMaxNumber(a, b, c) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  const currentX = queen.x;
+  const currentY = queen.y;
+
+  for (let x = currentX + 1; x <= 8; x += 1) {
+    if (x === king.x && currentY === king.y) return true;
+  }
+
+  for (let x = currentX - 1; x >= 1; x -= 1) {
+    if (x === king.x && currentY === king.y) return true;
+  }
+
+  for (let y = currentY + 1; y <= 8; y += 1) {
+    if (currentX === king.x && y === king.y) return true;
+  }
+
+  for (let y = currentY - 1; y >= 1; y -= 1) {
+    if (currentX === king.x && y === king.y) return true;
+  }
+
+  for (
+    let x = currentX + 1, y = currentY + 1;
+    x <= 8 && y <= 8;
+    x += 1, y += 1
+  ) {
+    if (x === king.x && y === king.y) return true;
+  }
+
+  for (
+    let x = currentX - 1, y = currentY + 1;
+    x >= 1 && y <= 8;
+    x -= 1, y += 1
+  ) {
+    if (x === king.x && y === king.y) return true;
+  }
+
+  for (
+    let x = currentX + 1, y = currentY - 1;
+    x <= 8 && y >= 1;
+    x += 1, y -= 1
+  ) {
+    if (x === king.x && y === king.y) return true;
+  }
+
+  for (
+    let x = currentX - 1, y = currentY - 1;
+    x >= 1 && y >= 1;
+    x -= 1, y -= 1
+  ) {
+    if (x === king.x && y === king.y) return true;
+  }
+
+  return false;
 }
 
 /**
@@ -91,8 +142,11 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  if (a + b > c && a + c > b && b + c > a) {
+    return a === b || a === c || b === c;
+  }
+  return false;
 }
 
 /**
