@@ -344,8 +344,25 @@ function isContainNumber(num, digit) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  for (let i = 0; i < arr.length; i += 1) {
+    let sumLeft = 0;
+    let sumRight = 0;
+
+    for (let j = 0; j < i; j += 1) {
+      sumLeft += arr[j];
+    }
+
+    for (let j = i + 1; j < arr.length; j += 1) {
+      sumRight += arr[j];
+    }
+
+    if (sumLeft === sumRight) {
+      return i;
+    }
+  }
+
+  return -1;
 }
 
 /**
@@ -427,8 +444,34 @@ function sortByAsc(/* arr */) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+function shuffleChar(str, iterations) {
+  let current = str;
+  let period = 0;
+  do {
+    let even = '';
+    let odd = '';
+    for (let i = 0; i < str.length; i += 1) {
+      if (i % 2 === 0) even += current[i];
+      else odd += current[i];
+    }
+    current = even + odd;
+    period += 1;
+  } while (current !== str);
+
+  const remainingIterations = iterations % period;
+
+  current = str;
+  for (let iter = 0; iter < remainingIterations; iter += 1) {
+    let even = '';
+    let odd = '';
+    for (let i = 0; i < str.length; i += 1) {
+      if (i % 2 === 0) even += current[i];
+      else odd += current[i];
+    }
+    current = even + odd;
+  }
+
+  return current;
 }
 
 /**
@@ -449,8 +492,41 @@ function shuffleChar(/* str, iterations */) {
  * 321321   => 322113
  *
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
+function getNearestBigger(number) {
+  const digits = [];
+  let temp = number;
+  while (temp > 0) {
+    digits.unshift(temp % 10);
+    temp = Math.floor(temp / 10);
+  }
+  let i = digits.length - 2;
+  while (i >= 0 && digits[i] >= digits[i + 1]) {
+    i -= 1;
+  }
+
+  if (i < 0) return number;
+
+  let j = digits.length - 1;
+  while (digits[j] <= digits[i]) {
+    j -= 1;
+  }
+
+  [digits[i], digits[j]] = [digits[j], digits[i]];
+
+  let left = i + 1;
+  let right = digits.length - 1;
+  while (left < right) {
+    [digits[left], digits[right]] = [digits[right], digits[left]];
+    left += 1;
+    right -= 1;
+  }
+
+  let result = 0;
+  for (let k = 0; k < digits.length; k += 1) {
+    result = result * 10 + digits[k];
+  }
+
+  return result;
 }
 
 module.exports = {
